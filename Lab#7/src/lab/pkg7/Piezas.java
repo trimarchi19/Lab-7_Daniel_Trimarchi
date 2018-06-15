@@ -69,6 +69,11 @@ public class Piezas  {
     public void setPiezas(ArrayList<Piezas> piezas) {
         this.piezas = piezas;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
     
     
 }

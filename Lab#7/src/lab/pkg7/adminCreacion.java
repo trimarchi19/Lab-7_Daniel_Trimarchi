@@ -10,5 +10,6 @@ package lab.pkg7;
  * @author X
  */
 public class adminCreacion {
-    
+     private boolean avanzar;
+    private boolean vive;
 }

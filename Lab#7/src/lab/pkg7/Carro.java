@@ -37,6 +37,11 @@ public class Carro {
     public void setPieza(ArrayList<Piezas> pieza) {
         this.pieza = pieza;
     }
+
+    @Override
+    public String toString() {
+        return nombre_carro;
+    }
     
     
 }
