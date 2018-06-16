@@ -8,6 +8,7 @@ package lab.pkg7;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -18,11 +19,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public class adminCreacion extends Thread {
 
+    frames t = new frames();
     private JTable tabla;
-    private boolean avanzar=true;
-    private boolean vive=true;
+    private boolean avanzar = true;
+    private boolean vive = true;
     private DefaultMutableTreeNode p;
-    private ArrayList <DefaultMutableTreeNode> d;
+    private ArrayList<DefaultMutableTreeNode> d;
+
     public adminCreacion() {
     }
 
@@ -30,13 +33,10 @@ public class adminCreacion extends Thread {
         this.tabla = tabla;
     }
 
-   
-
     public adminCreacion(JTable tabla, ArrayList<DefaultMutableTreeNode> d) {
         this.tabla = tabla;
         this.d = d;
     }
-    
 
     public DefaultMutableTreeNode getP() {
         return p;
@@ -45,7 +45,6 @@ public class adminCreacion extends Thread {
     public void setP(DefaultMutableTreeNode p) {
         this.p = p;
     }
-    
 
     public JTable getTabla() {
         return tabla;
@@ -73,22 +72,20 @@ public class adminCreacion extends Thread {
 
     @Override
     public void run() {
-        while (vive) {
-            int cont=0;
-            if (avanzar) {
-             
-                
-                try {
-                    Thread.sleep(1*1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(adminCreacion.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                Object[]newrow={1,
-                    
-                };
-                
-                DefaultTableModel modelo=(DefaultTableModel)tabla.getModel();
+        t.setVisible(true);
+        for (int i = 0; i < d.size();i++) {
+            int cont = 0;
+
+            try {
+                Thread.sleep(1 * 1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(adminCreacion.class.getName()).log(Level.SEVERE, null, ex);
             }
+            Object[] newrow = {,};
+
+            DefaultTableModel modelo = (DefaultTableModel) t.tablassssss.getModel();
+            t.tablassssss.setModel(modelo);
         }
     }
+
 }
