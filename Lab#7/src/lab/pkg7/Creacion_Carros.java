@@ -34,6 +34,8 @@ public class Creacion_Carros extends javax.swing.JFrame {
     private void initComponents() {
 
         frame = new javax.swing.JFrame();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablass = new javax.swing.JTable();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -56,15 +58,35 @@ public class Creacion_Carros extends javax.swing.JFrame {
         tree = new javax.swing.JTree();
         jButton1 = new javax.swing.JButton();
 
+        tablass.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Pieza", "Tiempo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tablass);
+
         javax.swing.GroupLayout frameLayout = new javax.swing.GroupLayout(frame.getContentPane());
         frame.getContentPane().setLayout(frameLayout);
         frameLayout.setHorizontalGroup(
             frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(frameLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 35, Short.MAX_VALUE))
         );
         frameLayout.setVerticalGroup(
             frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -236,7 +258,7 @@ public class Creacion_Carros extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -293,7 +315,7 @@ public class Creacion_Carros extends javax.swing.JFrame {
 
     private void cb2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb2ItemStateChanged
         // TODO add your handling code here:
-        
+
         if (cb2.getSelectedIndex() > 0) {
             DefaultTreeModel modelo = (DefaultTreeModel) tree.getModel();
             modelo.setRoot((DefaultMutableTreeNode) cb2.getSelectedItem());
@@ -303,10 +325,10 @@ public class Creacion_Carros extends javax.swing.JFrame {
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         // TODO add your handling code here:
-         DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb2.getModel();
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb2.getModel();
         if (jTabbedPane1.getSelectedIndex() == 1) {
-           modelo.removeAllElements();
-           modelo.addElement("Seleccione");
+            modelo.removeAllElements();
+            modelo.addElement("Seleccione");
             for (DefaultMutableTreeNode t : obj) {
                 modelo.addElement(t);
             }
@@ -314,8 +336,20 @@ public class Creacion_Carros extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    
+        DefaultTreeModel modelo = (DefaultTreeModel) tree.getModel();
+        DefaultMutableTreeNode p = (DefaultMutableTreeNode) modelo.getRoot();
+        System.out.println(obj.get(0).getRoot());
+        for(int i=0;i<obj.size();i++){
+            if(obj.get(i).toString().equals(p.getRoot())){
+                System.out.println("Si entro");
+            }
+        }
+        
+        secuencia = new ArrayList();
+        frame.pack();
+        frame.setLocationRelativeTo(this);
+        frame.setVisible(true);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -359,7 +393,7 @@ public class Creacion_Carros extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb2;
     private javax.swing.JToggleButton crear_carro;
     private javax.swing.JButton crear_pieza;
-    private javax.swing.JFrame frame;
+    public javax.swing.JFrame frame;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -369,11 +403,13 @@ public class Creacion_Carros extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField material;
     private javax.swing.JTextField mini_pieza;
     private javax.swing.JTextField size;
+    public javax.swing.JTable tablass;
     private javax.swing.JTextField tiempo;
     private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables
@@ -383,32 +419,30 @@ ArrayList<Carro> C = new ArrayList();
 
     public void a_nodo(DefaultMutableTreeNode p) {
 
-        if (p.getChildCount() >=0) {
-            System.out.println(cb.getSelectedItem().toString());
-            System.out.println(p.toString());
-            System.out.println(p.toString().equals(cb.getSelectedItem().toString()));
-            System.out.println("-------------------------------------");
+        if (p.getChildCount() >= 0) {
             if (p.toString().equals(cb.getSelectedItem().toString())) {
                 DefaultMutableTreeNode n = new DefaultMutableTreeNode(new Piezas(
                         mini_pieza.getText(), material.getText(), size.getText(), tiempo.getText()));
                 p.add(n);
                 System.out.println(p.getChildAt(0));
-                System.out.println("Si tiene Hijo");
+
                 DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb.getModel();
                 modelo.addElement(new Piezas(
                         mini_pieza.getText(), material.getText(), size.getText(), tiempo.getText()));
                 cb.setModel(modelo);
             } else {
                 for (int i = 0; i < p.getChildCount(); i++) {
-                    System.out.println("Busca Hijo");
-                    System.out.println(((DefaultMutableTreeNode) p.getChildAt(i)) + ".--.-..-.-");
                     a_nodo(((DefaultMutableTreeNode) p.getChildAt(i)));
-                    System.out.println("Paso?");
+
                 }
             }
 
         }
 
     }
+
+  
+
     ArrayList<DefaultMutableTreeNode> obj = new ArrayList();
+    ArrayList<DefaultMutableTreeNode> secuencia;
 }
