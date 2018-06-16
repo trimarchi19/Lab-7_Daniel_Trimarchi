@@ -336,19 +336,19 @@ public class Creacion_Carros extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        adminCreacion ad=new adminCreacion();
+        adminCreacion ad = new adminCreacion();
         DefaultTreeModel modelo = (DefaultTreeModel) tree.getModel();
         DefaultMutableTreeNode p = (DefaultMutableTreeNode) modelo.getRoot();
-        System.out.println(obj.get(0).getRoot()+"root");
+        System.out.println(obj.get(0).getRoot() + "root");
         System.out.println(p);
-        for(int i=0;i<obj.size();i++){
-      
-            if(obj.get(i).toString().equals(p.toString())){
+        for (int i = 0; i < obj.size(); i++) {
+
+            if (obj.get(i).toString().equals(p.toString())) {
                 sacar(obj.get(i));
                 System.out.println("Si entro");
             }
         }
-        
+
         secuencia = new ArrayList();
         frame.pack();
         frame.setLocationRelativeTo(this);
@@ -444,19 +444,21 @@ ArrayList<Carro> C = new ArrayList();
         }
 
     }
-    public void sacar(DefaultMutableTreeNode p){
-        if(p.getChildCount()==0){
-            System.out.println(((Piezas)p.getUserObject()).getNombre()+"--------------");
-           secuencia.add(((Piezas)p.getUserObject()).getNombre());
-            System.out.println("-------------");
-        }else{
-            for(int i=0;i<p.getChildCount();i++){
-                sacar((DefaultMutableTreeNode)p.getChildAt(i));
+
+    public void sacar(DefaultMutableTreeNode p) {
+        if (p.getChildCount() == 0) {
+            System.out.println(((Piezas) p.getUserObject()).getNombre() + "--------------");
+            secuencia.add(new Piezas(((Piezas) p.getUserObject()).getNombre(),
+            ((Piezas) p.getUserObject()).getMaterial(),
+            ((Piezas) p.getUserObject()).getSize(),((Piezas) p.getUserObject()).getTiempo()
+            ));
+            System.out.println(secuencia+"-------------");
+        } else {
+            for (int i = 0; i < p.getChildCount(); i++) {
+                sacar((DefaultMutableTreeNode) p.getChildAt(i));
             }
         }
     }
-
-  
 
     ArrayList<DefaultMutableTreeNode> obj = new ArrayList();
     ArrayList<Piezas> secuencia;
